@@ -1,0 +1,24 @@
+{
+  "name": "hello-survey",
+  "version": "0.0.1",
+  "description": "Simple, JSON-based survey rendering tool.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jester12345/hello-survey.git"
+  },
+  "keywords": [
+    "hello",
+    "survey",
+    "json"
+  ],
+  "author": "Arthur McLean",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jester12345/hello-survey/issues"
+  },
+  "homepage": "https://github.com/jester12345/hello-survey#readme"
+}
