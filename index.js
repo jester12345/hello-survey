@@ -1,2 +1,2 @@
 // Just kick things off
-require('./app/index');
+require('./dist/index');

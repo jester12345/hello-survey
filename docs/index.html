@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Hello Survey</title>
+        <meta name="author" content="Arthur McLean">
+        <meta name="description" content="Hello Survey demo">
+        <link rel="stylesheet" href="../css/main.css">
+        <script type="text/javascript" src="../dist/index.js"></script>
+    </head>
+    <body>
+        <h1>Hello Survey</h1>
+        <p>
+            The idea for this application is pretty simple. It's essentially automatic form generation based on JSON input.
+            Ideally we won't require external libraries like jQuery.
+        </p>
+        <div id="target_div"></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Usage</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>target</th>
+                    <td>Required</td>
+                    <td></td>
+                    <td>ID of the HTML element in which to build the form.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <script type="text/javascript">
+            function autorun() {
+                // Kick things off
+                var data = {
+                    target: 'target_div',
+                    fields: [{
+                        element:    'input',
+                        params:     {
+                            type:   'submit',
+                            name:   'submit',
+                            value:  'Submit'    
+                        }
+                    }]
+                };
+                var survey = new helloSurvey(data);
+            }
+            if( document.addEventListener ) {
+                document.addEventListener("DOMContentLoaded", autorun, false);
+            } else if( document.attachEvent ) {
+                document.attachEvent("onreadystatechange", autorun);
+            } else {
+                window.onload = autorun;
+            }
+        </script>
+    </body>
+</html>

@@ -20,5 +20,21 @@
   "bugs": {
     "url": "https://github.com/jester12345/hello-survey/issues"
   },
-  "homepage": "https://github.com/jester12345/hello-survey#readme"
+  "homepage": "https://github.com/jester12345/hello-survey#readme",
+  "devDependencies": {
+    "autoprefixer": "^7.1.4",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "grunt": "^1.0.1",
+    "grunt-babel": "^7.0.0",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-postcss": "^0.9.0",
+    "grunt-sass": "^2.0.0",
+    "load-grunt-tasks": "^3.5.2",
+    "node-sass": "^4.5.3",
+    "sass-watch": "^0.1.0"
+  }
 }
