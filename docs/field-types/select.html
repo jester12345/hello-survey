@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Hello Survey - Field Types - Select</title>
+        <meta name="author" content="Arthur McLean">
+        <meta name="description" content="Hello Survey demo">
+        <link rel="stylesheet" href="../../css/main.css">
+        <script type="text/javascript" src="../../dist/index.js"></script>
+    </head>
+    <body>
+        <h1>Hello Survey - Field Types - Select</h1>
+        <nav>
+            <a href="../index.html">Home</a> | <a href="../field-types/index.html">Field Types</a>
+        </nav>
+        <p>
+            Here's how to implement a Text Area
+        </p>
+        <aside>
+            Mozilla reference:<br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">Select</a><br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup" target="_blank">Optgroup</a><br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option" target="_blank">Option</a><br>
+            
+        </aside>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Usage</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>target</th>
+                    <td>Required</td>
+                    <td></td>
+                    <td>ID of the HTML element in which to build the form.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="target_div"></div>
+
+        <script type="text/javascript">
+            function autorun() {
+                // Kick things off
+                var data = {
+                    target:     'target_div',
+                    children:   [
+                        {
+                            element:    'div',
+                            children:   [{
+                                element: 'label',
+                                params: {
+                                    text: 'How old are you?'
+                                },
+                                children:   [{
+                                    element: 'select',
+                                    params: {
+                                        name: 'my-select',
+                                    },
+                                    children: [{
+                                        element: 'option',
+                                        params: {
+                                            label:      'Under 13',
+                                            selected:   true,
+                                            value:      '<13'
+                                        }
+                                    },{
+                                        element: 'option',
+                                        params: {
+                                            label: '13-17',
+                                            value: '13-17'
+                                        }
+                                    },{
+                                        element: 'option',
+                                        params: {
+                                            label: '18-25',
+                                            value: '18-25'
+                                        }
+                                    },{
+                                        element: 'option',
+                                        params: {
+                                            label: '26-34',
+                                            value: '26-34'
+                                        }
+                                    },{
+                                        element: 'option',
+                                        params: {
+                                            label: '35-54',
+                                            value: '35-54'
+                                        }
+                                    },{
+                                        element: 'option',
+                                        params: {
+                                            label: '55-64',
+                                            value: '55-64'
+                                        }
+                                    },{
+                                        element: 'option',
+                                        params: {
+                                            label: '65 or over',
+                                            value: '>=65 or over'
+                                        }
+                                    }]
+                                }]
+                            }]
+                        },
+                        {
+                            element: 'div',
+                            children: [{
+                                element:    'input',
+                                params:     {
+                                    type:   'submit',
+                                    name:   'submit',
+                                    value:  'Submit'    
+                                }
+                            }]
+                        }
+                    ]
+                };
+
+                var survey = new helloSurvey(data);
+            }
+            if( document.addEventListener ) {
+                document.addEventListener("DOMContentLoaded", autorun, false);
+            } else if( document.attachEvent ) {
+                document.attachEvent("onreadystatechange", autorun);
+            } else {
+                window.onload = autorun;
+            }
+        </script>
+    </body>
+</html>

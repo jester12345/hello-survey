@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Hello Survey - Field Types - Text Area</title>
+        <meta name="author" content="Arthur McLean">
+        <meta name="description" content="Hello Survey demo">
+        <link rel="stylesheet" href="../../css/main.css">
+        <script type="text/javascript" src="../../dist/index.js"></script>
+    </head>
+    <body>
+        <h1>Hello Survey - Field Types - Text Area</h1>
+        <nav>
+            <a href="../index.html">Home</a> | <a href="../field-types/index.html">Field Types</a>
+        </nav>
+        <p>
+            Here's how to implement a Text Area
+        </p>
+        <aside>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea" target="_blank">Mozilla reference</a>
+        </aside>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Usage</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>target</th>
+                    <td>Required</td>
+                    <td></td>
+                    <td>ID of the HTML element in which to build the form.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="target_div"></div>
+
+        <script type="text/javascript">
+            function autorun() {
+                // Kick things off
+                var data = {
+                    target:     'target_div',
+                    children:   [
+                        {
+                            element: 'div',
+                            children: [{
+                                element:    'label',
+                                params: {
+                                    for:    'my-text-area',
+                                    text:   'Additional Information:'
+                                }
+                            }]
+                        },
+                        {
+                            element:    'div',
+                            children:   [{
+                                element:        'textarea',
+                                params: {
+                                    name:           'my-text-area',
+                                    id:             'my-text-area',
+                                    placeholder:    'Please tell us anything you feel we should know'
+                                }
+                            }]
+                        },
+                        {
+                            element: 'div',
+                            children: [{
+                                element:    'input',
+                                params:     {
+                                    type:   'submit',
+                                    name:   'submit',
+                                    value:  'Submit'    
+                                }
+                            }]
+                        }
+                    ]
+                };
+                var survey = new helloSurvey(data);
+            }
+            if( document.addEventListener ) {
+                document.addEventListener("DOMContentLoaded", autorun, false);
+            } else if( document.attachEvent ) {
+                document.attachEvent("onreadystatechange", autorun);
+            } else {
+                window.onload = autorun;
+            }
+        </script>
+    </body>
+</html>

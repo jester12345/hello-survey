@@ -38,7 +38,7 @@ var helloSurvey = function () {
                 }, {
                     eventType: 'submit',
                     eventAction: this.submit
-                }, data.fields);
+                }, data.children);
             } else {
                 // Report an error
                 console.error('Required target parameter is missing.');
@@ -52,7 +52,11 @@ var helloSurvey = function () {
 
             if (params) {
                 for (var key in params) {
-                    if (params.hasOwnProperty(key)) {
+                    if (key === 'text') {
+                        // We need to make a text node as a child of the current element
+                        var text = document.createTextNode(params[key]);
+                        elem.appendChild(text);
+                    } else if (params.hasOwnProperty(key)) {
                         elem.setAttribute(key, params[key]);
                     }
                 }
@@ -66,7 +70,7 @@ var helloSurvey = function () {
 
             if (children) {
                 for (var c in children) {
-                    this.addElementTo(elem, children[c].element, children[c].params, children[c].event, children[c].fields);
+                    this.addElementTo(elem, children[c].element, children[c].params, children[c].event, children[c].children);
                 }
             }
 

@@ -28,7 +28,7 @@ class helloSurvey {
             }, {
                 eventType:      'submit',
                 eventAction:    this.submit
-            }, data.fields);
+            }, data.children);
         } else {
             // Report an error
             console.error('Required target parameter is missing.');
@@ -41,7 +41,11 @@ class helloSurvey {
 
         if( params ) {
             for (let key in params) {
-                if (params.hasOwnProperty(key)) {
+                if( key === 'text' ) {
+                    // We need to make a text node as a child of the current element
+                    let text = document.createTextNode(params[key]);
+                    elem.appendChild(text);
+                } else if (params.hasOwnProperty(key)) {
                     elem.setAttribute(key, params[key]);
                 }
             }
@@ -55,7 +59,7 @@ class helloSurvey {
 
         if( children ) {
             for ( let c in children ) {
-                this.addElementTo(elem, children[c].element, children[c].params, children[c].event, children[c].fields);
+                this.addElementTo(elem, children[c].element, children[c].params, children[c].event, children[c].children);
             }
         }
 
