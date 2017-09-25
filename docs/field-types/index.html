@@ -20,8 +20,12 @@
         </p>
 
         <ul>
-            <li>Button</li>
-            <li>Input</li>
+            <li>
+                Button (vs. an input type of button)
+            </li>
+            <li>
+                <a href="input/index.html">Input</a>
+            </li>
             <li>
                 <a href="select.html">Select</a>
             </li>
@@ -48,32 +52,5 @@
                 </tr>
             </tbody>
         </table>
-
-        <div id="target_div"></div>
-
-        <script type="text/javascript">
-            function autorun() {
-                // Kick things off
-                var data = {
-                    target:     'target_div',
-                    children:   [{
-                        element:    'input',
-                        params:     {
-                            type:   'submit',
-                            name:   'submit',
-                            value:  'Submit'    
-                        }
-                    }]
-                };
-                var survey = new helloSurvey(data);
-            }
-            if( document.addEventListener ) {
-                document.addEventListener("DOMContentLoaded", autorun, false);
-            } else if( document.attachEvent ) {
-                document.attachEvent("onreadystatechange", autorun);
-            } else {
-                window.onload = autorun;
-            }
-        </script>
     </body>
 </html>

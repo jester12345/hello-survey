@@ -5,6 +5,7 @@ Early days... not much yet.
 
 ## ToDo
 * Add demo
+** Update input type="button" description with links to input type="submit" and button
 * Initialization with JSON
 * Submit to user defined end point
 * Support compressed JSON
