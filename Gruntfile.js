@@ -2,11 +2,13 @@ module.exports = function(grunt) {
     // Load the task runners
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Configure the task runners
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
         sass: {
             dist: {
                 options: {
@@ -45,6 +47,20 @@ module.exports = function(grunt) {
             }
         },
 
+        uglify: {
+            options: {
+                sourceMap:      true,
+                sourceMapName:  'dist/index.min.js.map',
+                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */'
+            },
+            dist: {
+                files: {
+                    // destination // source file
+                    'dist/index.min.js': ['dist/index.js']
+                }
+            }
+        },
+
         watch: {
             css: {
                 files: ['src/*.scss'],
@@ -58,5 +74,5 @@ module.exports = function(grunt) {
     });
 
     // Define our tasks
-    grunt.registerTask('default', ['sass:dist', 'postcss:dist', 'babel:dist', 'watch']);
+    grunt.registerTask('default', ['sass:dist', 'postcss:dist', 'babel:dist', 'uglify:dist', 'watch']);
 };

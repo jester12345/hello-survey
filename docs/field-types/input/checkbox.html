@@ -4,78 +4,37 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Hello Survey</title>
+        <title>Hello Survey - Field Types - Input - Button</title>
         <meta name="author" content="Arthur McLean">
         <meta name="description" content="Hello Survey demo">
-        <link rel="stylesheet" href="../css/main.css">
-        <script type="text/javascript" src="../dist/index.js"></script>
+        <link rel="stylesheet" href="../../../css/main.css">
+        <script type="text/javascript" src="../../../dist/index.js"></script>
     </head>
     <body>
-        <h1>Hello Survey</h1>
+        <h1>Hello Survey - Field Types - Input - Button</h1>
+        <nav>
+            <a href="../../index.html">Home</a> | <a href="../index.html">Field Types</a> | <a href="index.html">Input Types</a>
+        </nav>
+
+        <h2>Usage:</h2>
         <p>
-            The idea for this application is pretty simple. It's essentially automatic form generation based on JSON input.
-            Ideally we won't require external libraries like jQuery. But, because the form is generated via JavaScript, it
-            fails utterly if JS is disabled.
+            This page describes the checkbox input type.
         </p>
 
-        <ul>
-            <li>
-                Labels
-            </li>
-            <li>
-                <a href="field-types/index.html">Field Types</a>
-            </li>
-            <li>Styling</li>
-            <li>Validation</li>
-        </ul>
+        <aside>
+            Mozilla reference:<br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input" target="_blank">Input</a><br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox" target="_blank">Checkbox</a>
+        </aside>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Parameter</th>
-                    <th>Usage</th>
-                    <th>Default</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>target</th>
-                    <td>Required</td>
-                    <td></td>
-                    <td>ID of the HTML element in which to build the form.</td>
-                </tr>
-                <tr>
-                    <th>submitFn</th>
-                    <td>Optional</td>
-                    <td></td>
-                    <td>Function to call on form submit with the result data.</td>
-                </tr>
-                <tr>
-                    <th>fields</th>
-                    <td>Optional</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-
+        <h2>Example:</h2>
         <div id="target_div"></div>
 
-        <div>
-            <pre id="result_div"></pre>
-        </div>
-
         <script type="text/javascript">
-            function mySubmit(data) {
-                console.log(data);
-            }
-
             function autorun() {
                 // Kick things off
                 var data = {
                     target:     'target_div',
-                    submitFn:   mySubmit,
                     children:   [{
                         element:    'div',
                         children:   [{
@@ -122,7 +81,7 @@
                             params:     {
                                 type:   'submit',
                                 name:   'submit',
-                                value:  'Submit'    
+                                value:  'Submit'
                             }
                         }]
                     }]
