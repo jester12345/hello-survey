@@ -102,7 +102,7 @@
                             children: [{
                                 element: 'textNode',
                                 params: {
-                                    text:   'Disabled checkbox'
+                                    text:   'Disabled checkbox (should not submit)'
                                 }
                             }, {
                                 element: 'input',
@@ -111,6 +111,97 @@
                                     name:       'not-so-fast',
                                     value:      'do not send',
                                     disabled:   'true'
+                                }
+                            }]
+                        }]
+                    },
+                    {
+                        element:    'div',
+                        children:   [{
+                            element:        'textarea',
+                            params: {
+                                name:           'my-text-area',
+                                id:             'my-text-area',
+                                placeholder:    'Please tell us anything you feel we should know'
+                            }
+                        }]
+                    },
+                    {
+                        element:    'div',
+                        children:   [{
+                            element: 'label',
+                            children:   [{
+                                element: 'textNode',
+                                params: {
+                                    text:   'How old are you?'
+                                }
+                            }, {
+                                element: 'select',
+                                params: {
+                                    name: 'my-select',
+                                },
+                                children: [{
+                                    element: 'option',
+                                    params: {
+                                        label:      'Under 13',
+                                        selected:   true,
+                                        value:      '<13'
+                                    }
+                                },{
+                                    element: 'option',
+                                    params: {
+                                        label: '13-17',
+                                        value: '13-17'
+                                    }
+                                },{
+                                    element: 'option',
+                                    params: {
+                                        label: '18-25',
+                                        value: '18-25'
+                                    }
+                                },{
+                                    element: 'option',
+                                    params: {
+                                        label: '26-34',
+                                        value: '26-34'
+                                    }
+                                },{
+                                    element: 'option',
+                                    params: {
+                                        label: '35-54',
+                                        value: '35-54'
+                                    }
+                                },{
+                                    element: 'option',
+                                    params: {
+                                        label: '55-64',
+                                        value: '55-64'
+                                    }
+                                },{
+                                    element: 'option',
+                                    params: {
+                                        label: '65 or over',
+                                        value: '>=65 or over'
+                                    }
+                                }]
+                            }]
+                        }]
+                    },
+                    {
+                        element:    'div',
+                        children:   [{
+                            element: 'label',
+                            children: [{
+                                element: 'textNode',
+                                params: {
+                                    text:   'Favorite Color?'
+                                }
+                            }, {
+                                element: 'input',
+                                params: {
+                                    type:   'color',
+                                    name:   'color',
+                                    value:  '#bf5700'
                                 }
                             }]
                         }]
