@@ -207,6 +207,25 @@
                         }]
                     },
                     {
+                        element:    'div',
+                        children:   [{
+                            element: 'label',
+                            children: [{
+                                element: 'textNode',
+                                params: {
+                                    text:   'Favorite Date?'
+                                }
+                            }, {
+                                element: 'input',
+                                params: {
+                                    type:   'date',
+                                    name:   'date',
+                                    value:  new Date().toISOString().substring(0, 10)
+                                }
+                            }]
+                        }]
+                    },
+                    {
                         element: 'div',
                         children: [{
                             element:    'input',

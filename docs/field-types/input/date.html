@@ -4,28 +4,28 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Hello Survey - Field Types - Input - Color</title>
+        <title>Hello Survey - Field Types - Input - Date</title>
         <meta name="author" content="Arthur McLean">
         <meta name="description" content="Hello Survey demo">
         <link rel="stylesheet" href="../../../css/main.css">
         <script type="text/javascript" src="../../../dist/index.js"></script>
     </head>
     <body>
-        <h1>Hello Survey - Field Types - Input - Color</h1>
+        <h1>Hello Survey - Field Types - Input - Date</h1>
         <nav>
             <a href="../../index.html">Home</a> | <a href="../index.html">Field Types</a> | <a href="index.html">Input Types</a>
         </nav>
 
         <h2>Usage:</h2>
         <p>
-            This page describes the color input type. Note, no IE support (Edge only).
+            This page describes the date input type.
         </p>
 
         <aside>
             Mozilla reference:<br>
             <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input" target="_blank">Input</a><br>
-            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color" target="_blank">Color</a><br>
-            <a href="https://caniuse.com/#feat=input-color" target="_blank">Can I Use?</a>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date" target="_blank">Date</a><br>
+            <a href="https://caniuse.com/#feat=input-datetime" target="_blank">Can I Use?</a>
         </aside>
 
         <h2>Example:</h2>
@@ -43,14 +43,14 @@
                             children: [{
                                 element: 'textNode',
                                 params: {
-                                    text:   'Favorite Color?'
+                                    text:   'Favorite Date?'
                                 }
                             }, {
                                 element: 'input',
                                 params: {
-                                    type:   'color',
-                                    name:   'color',
-                                    value:  '#bf5700'
+                                    type:   'date',
+                                    name:   'date',
+                                    value:  new Date().toISOString().substring(0, 10)
                                 }
                             }]
                         }]
