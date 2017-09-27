@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Hello Survey - Field Types - Input - Hidden</title>
+        <meta name="author" content="Arthur McLean">
+        <meta name="description" content="Hello Survey demo">
+        <link rel="stylesheet" href="../../../css/main.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script type="text/javascript" src="../../../dist/index.js"></script>
+    </head>
+    <body>
+        <h1>Hello Survey - Field Types - Input - Hidden</h1>
+        <nav>
+            <a href="../../index.html">Home</a> | <a href="../index.html">Field Types</a> | <a href="index.html">Input Types</a>
+        </nav>
+
+        <h2>Usage:</h2>
+        <p>
+            This page describes the hidden input type. Useful for embedding user-specific data in the results.
+        </p>
+
+        <aside>
+            Mozilla reference:<br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input" target="_blank">Input</a><br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/hidden" target="_blank">Hidden</a><br>
+        </aside>
+
+        <h2>Example:</h2>
+        <div id="target_div"></div>
+
+        <script type="text/javascript">
+            function autorun() {
+                // Kick things off
+                var data = {
+                    target:     'target_div',
+                    children:   [{
+                        element:    'div',
+                        children:   [{
+                            element: 'label',
+                            children: [{
+                                element: 'textNode',
+                                params: {
+                                    text:   'Hidden Field'
+                                }
+                            }, {
+                                element: 'input',
+                                params: {
+                                    type:   'hidden',
+                                    name:   'hidden',
+                                    value:  moment().format('x')
+                                }
+                            }]
+                        }]
+                    },
+                    {
+                        element: 'div',
+                        children: [{
+                            element:    'input',
+                            params:     {
+                                type:   'submit',
+                                name:   'submit',
+                                value:  'Submit'
+                            }
+                        }]
+                    }]
+                };
+                var survey = new helloSurvey(data);
+            }
+            if( document.addEventListener ) {
+                document.addEventListener("DOMContentLoaded", autorun, false);
+            } else if( document.attachEvent ) {
+                document.attachEvent("onreadystatechange", autorun);
+            } else {
+                window.onload = autorun;
+            }
+        </script>
+    </body>
+</html>

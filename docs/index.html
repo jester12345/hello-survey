@@ -268,6 +268,25 @@
                         }]
                     },
                     {
+                        element:    'div',
+                        children:   [{
+                            element: 'label',
+                            children: [{
+                                element: 'textNode',
+                                params: {
+                                    text:   'Hidden Field'
+                                }
+                            }, {
+                                element: 'input',
+                                params: {
+                                    type:   'hidden',
+                                    name:   'hidden',
+                                    value:  moment().format('x')
+                                }
+                            }]
+                        }]
+                    },
+                    {
                         element: 'div',
                         children: [{
                             element:    'input',
