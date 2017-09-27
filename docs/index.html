@@ -8,6 +8,7 @@
         <meta name="author" content="Arthur McLean">
         <meta name="description" content="Hello Survey demo">
         <link rel="stylesheet" href="../css/main.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
         <script type="text/javascript" src="../dist/index.js"></script>
     </head>
     <body>
@@ -220,7 +221,26 @@
                                 params: {
                                     type:   'date',
                                     name:   'date',
-                                    value:  new Date().toISOString().substring(0, 10)
+                                    value:  moment().format('YYYY-MM-DD')
+                                }
+                            }]
+                        }]
+                    },
+                    {
+                        element:    'div',
+                        children:   [{
+                            element: 'label',
+                            children: [{
+                                element: 'textNode',
+                                params: {
+                                    text:   'Favorite Datetime?'
+                                }
+                            }, {
+                                element: 'input',
+                                params: {
+                                    type:   'datetime-local',
+                                    name:   'datetime',
+                                    value:  moment().format('YYYY-MM-DDTHH:mm:ss')
                                 }
                             }]
                         }]
