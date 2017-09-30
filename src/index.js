@@ -48,7 +48,7 @@ class helloSurvey {
     }
 
     addElementTo(parent, element, params, evt, children) {
-        console.log("addElementTo", parent, element, params, evt, children);
+        // console.log("addElementTo", parent, element, params, evt, children);
         let elem;
         if( element === 'textNode' ) {
             // We are creating a textNode, and there's only one option, params.text... the text for the textNode
@@ -108,34 +108,43 @@ class helloSurvey {
             }).filter(function (element) {
                 // Remove buttons
                 return element.type !== 'submit' && element.type !== 'reset' && element.tagName.toLowerCase() !== 'button';
+            }).filter(function(element) {
+
+                let tagName = element.tagName.toLowerCase();
+                let tagType = element.type.toLowerCase();
+                // console.log("check this one", element.type);
+                if( tagName === 'input' && (tagType === 'checkbox' || tagType === 'radio') ) {
+                    // Is it checked?
+                    return element.checked;
+                } else {
+                    // Pass it on
+                    return true;
+                }
             }).map(function (element) {
-                console.log(element);
-                switch (element.tagName.toLowerCase()) {
+                
+                let key, value;
+                switch ( element.tagName.toLowerCase() ) {
                     case 'checkbox':
                     case 'radio':
-                        return {
-                            name: element.name,
-                            value: element.value === null ? 'on' : element.value
-                        };
+                        key     = element.name;
+                        value   = element.value === null ? 'on' : element.value;
+                        return { [key]: value };
                     case 'select':
+                        key     = element.name;
+                        value   = element.value;
                         if (element.multiple) {
-                            return {
-                                name: element.name,
-                                value: slice.call(element.selectedOptions)
-                                    .map(function (option) {
-                                        return option.value;
-                                    })
-                            };
+                            value = slice.call(element.selectedOptions)
+                                .map(function (option) {
+                                    return option.value;
+                                })
+                            return { [key]: value };
+                        } else {
+                            return { [key]: value };
                         }
-                        return {
-                            name: element.name,
-                            value: element.value
-                        };
                     default:
-                        return {
-                            name: element.name,
-                            value: element.value || ''
-                        };
+                        key     = element.name;
+                        value   = element.value || '';
+                        return { [key]: value };
                 }
             });
             // console.log("newElems", newElems);

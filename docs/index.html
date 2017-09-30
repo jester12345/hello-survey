@@ -139,7 +139,7 @@
                             }, {
                                 element: 'select',
                                 params: {
-                                    name: 'my-select',
+                                    name: 'age-range',
                                 },
                                 children: [{
                                     element: 'option',
@@ -183,6 +183,161 @@
                                     params: {
                                         label: '65 or over',
                                         value: '>=65 or over'
+                                    }
+                                }]
+                            }]
+                        }]
+                    },
+                    {
+                        element:    'div',
+                        children:   [{
+                            element:    'div',
+                            children:   [{
+                                element: 'label',
+                                children: [{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   'Favorite Age?'
+                                    }
+                                }]
+                            }]
+                        },
+                        {
+                            element:    'div',
+                            children:   [{
+                                element: 'label',
+                                children: [{
+                                    element: 'input',
+                                    params: {
+                                        type:       'radio',
+                                        name:       'favorite-age',
+                                        value:      '<13',
+                                        required:   true
+                                    }
+                                },{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   'Under 13'
+                                    }
+                                }]
+                            }]
+                        },
+                        {
+                            element:    'div',
+                            children:   [{
+                                element: 'label',
+                                children: [{
+                                    element: 'input',
+                                    params: {
+                                        type:       'radio',
+                                        name:       'favorite-age',
+                                        value:      '13-17',
+                                        required:   true
+                                    }
+                                },{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   '13-17'
+                                    }
+                                }]
+                            }]
+                        },
+                        {
+                            element:    'div',
+                            children:   [{
+                                element: 'label',
+                                children: [{
+                                    element: 'input',
+                                    params: {
+                                        type:       'radio',
+                                        name:       'favorite-age',
+                                        value:      '18-25',
+                                        required:   true
+                                    }
+                                },{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   '18-25'
+                                    }
+                                }]
+                            }]
+                        },
+                        {
+                            element:    'div',
+                            children:   [{
+                                element: 'label',
+                                children: [{
+                                    element: 'input',
+                                    params: {
+                                        type:       'radio',
+                                        name:       'favorite-age',
+                                        value:      '26-34',
+                                        required:   true
+                                    }
+                                },{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   '26-34'
+                                    }
+                                }]
+                            }]
+                        },
+                        {
+                            element:    'div',
+                            children:   [{
+                                element: 'label',
+                                children: [{
+                                    element: 'input',
+                                    params: {
+                                        type:       'radio',
+                                        name:       'favorite-age',
+                                        value:      '35-54',
+                                        required:   true
+                                    }
+                                },{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   '35-54'
+                                    }
+                                }]
+                            }]
+                        },
+                        {
+                            element:    'div',
+                            children:   [{
+                                element: 'label',
+                                children: [{
+                                    element: 'input',
+                                    params: {
+                                        type:       'radio',
+                                        name:       'favorite-age',
+                                        value:      '55-64',
+                                        required:   true
+                                    }
+                                },{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   '55-64'
+                                    }
+                                }]
+                            }]
+                        },
+                        {
+                            element:    'div',
+                            children:   [{
+                                element: 'label',
+                                children: [{
+                                    element: 'input',
+                                    params: {
+                                        type:       'radio',
+                                        name:       'favorite-age',
+                                        value:      '>=65',
+                                        required:   true
+                                    }
+                                },{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   '65 or over'
                                     }
                                 }]
                             }]
@@ -284,6 +439,50 @@
                                     value:  moment().format('x')
                                 }
                             }]
+                        }]
+                    },
+                    {
+                        element:    'div',
+                        children:   [{
+                            element: 'label',
+                            params: {
+                                for:   'month'
+                            },
+                            children: [{
+                                element: 'textNode',
+                                params: {
+                                    text:   'Favorite Month:'
+                                }
+                            }]
+                        }, {
+                            element: 'input',
+                            params: {
+                                type:   'month',
+                                id:     'month',
+                                name:   'month'
+                            }
+                        }]
+                    },
+                    {
+                        element:    'div',
+                        children:   [{
+                            element: 'label',
+                            params: {
+                                for:   'number'
+                            },
+                            children: [{
+                                element: 'textNode',
+                                params: {
+                                    text:   'Favorite Number:'
+                                }
+                            }]
+                        }, {
+                            element: 'input',
+                            params: {
+                                type:   'number',
+                                id:     'number',
+                                name:   'number'
+                            }
                         }]
                     },
                     {

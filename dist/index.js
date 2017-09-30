@@ -2,6 +2,8 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -59,7 +61,7 @@ var helloSurvey = function () {
     }, {
         key: "addElementTo",
         value: function addElementTo(parent, element, params, evt, children) {
-            console.log("addElementTo", parent, element, params, evt, children);
+            // console.log("addElementTo", parent, element, params, evt, children);
             var elem = void 0;
             if (element === 'textNode') {
                 // We are creating a textNode, and there's only one option, params.text... the text for the textNode
@@ -120,33 +122,43 @@ var helloSurvey = function () {
                 }).filter(function (element) {
                     // Remove buttons
                     return element.type !== 'submit' && element.type !== 'reset' && element.tagName.toLowerCase() !== 'button';
+                }).filter(function (element) {
+
+                    var tagName = element.tagName.toLowerCase();
+                    var tagType = element.type.toLowerCase();
+                    // console.log("check this one", element.type);
+                    if (tagName === 'input' && (tagType === 'checkbox' || tagType === 'radio')) {
+                        // Is it checked?
+                        return element.checked;
+                    } else {
+                        // Pass it on
+                        return true;
+                    }
                 }).map(function (element) {
-                    console.log(element);
+
+                    var key = void 0,
+                        value = void 0;
                     switch (element.tagName.toLowerCase()) {
                         case 'checkbox':
                         case 'radio':
-                            return {
-                                name: element.name,
-                                value: element.value === null ? 'on' : element.value
-                            };
+                            key = element.name;
+                            value = element.value === null ? 'on' : element.value;
+                            return _defineProperty({}, key, value);
                         case 'select':
+                            key = element.name;
+                            value = element.value;
                             if (element.multiple) {
-                                return {
-                                    name: element.name,
-                                    value: slice.call(element.selectedOptions).map(function (option) {
-                                        return option.value;
-                                    })
-                                };
+                                value = slice.call(element.selectedOptions).map(function (option) {
+                                    return option.value;
+                                });
+                                return _defineProperty({}, key, value);
+                            } else {
+                                return _defineProperty({}, key, value);
                             }
-                            return {
-                                name: element.name,
-                                value: element.value
-                            };
                         default:
-                            return {
-                                name: element.name,
-                                value: element.value || ''
-                            };
+                            key = element.name;
+                            value = element.value || '';
+                            return _defineProperty({}, key, value);
                     }
                 });
                 // console.log("newElems", newElems);
