@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Hello Survey - Field Types - Input - Range</title>
+        <meta name="author" content="Arthur McLean">
+        <meta name="description" content="Hello Survey demo">
+        <link rel="stylesheet" href="../../../css/main.css">
+        <script type="text/javascript" src="../../../dist/index.js"></script>
+    </head>
+    <body>
+        <h1>Hello Survey - Field Types - Input - Range</h1>
+        <nav>
+            <a href="../../index.html">Home</a> | <a href="../index.html">Field Types</a> | <a href="index.html">Input Types</a>
+        </nav>
+
+        <h2>Usage:</h2>
+        <p>
+            This page describes the range input type.
+        </p>
+
+        <aside>
+            Mozilla reference:<br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input" target="_blank">Input</a><br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range" target="_blank">Range</a>
+            <a href="https://caniuse.com/#feat=input-range" target="_blank">Can I Use?</a>
+        </aside>
+
+        <h2>Example:</h2>
+        <div id="target_div"></div>
+
+        <script type="text/javascript">
+            function autorun() {
+                // Kick things off
+                var data = {
+                    target:     'target_div',
+                    children:   [{
+                        element:    'div',
+                        children:   [{
+                            element: 'label',
+                            params: {
+                                for:   'range'
+                            },
+                            children: [{
+                                element: 'textNode',
+                                params: {
+                                    text:   'How do you feel about this?'
+                                }
+                            }]
+                        },
+                        {
+                            element: 'div',
+                            children: [{
+                                element: 'span',
+                                children: [{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   'Low'
+                                    }
+                                }]
+                            },
+                            {
+                                element: 'input',
+                                params: {
+                                    type:   'range',
+                                    id:     'range',
+                                    name:   'range',
+                                    min:    '1',
+                                    max:    '10'
+                                }
+                            },
+                            {
+                                element: 'span',
+                                children: [{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   'High'
+                                    }
+                                }]
+                            }]
+                        }]
+                    },
+                    {
+                        element: 'div',
+                        children: [{
+                            element:    'input',
+                            params:     {
+                                type:   'submit',
+                                name:   'submit',
+                                value:  'Submit'    
+                            }
+                        }]
+                    }]
+                };
+                var survey = new helloSurvey(data);
+            }
+            if( document.addEventListener ) {
+                document.addEventListener("DOMContentLoaded", autorun, false);
+            } else if( document.attachEvent ) {
+                document.attachEvent("onreadystatechange", autorun);
+            } else {
+                window.onload = autorun;
+            }
+        </script>
+    </body>
+</html>

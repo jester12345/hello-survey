@@ -486,6 +486,52 @@
                         }]
                     },
                     {
+                        element:    'div',
+                        children:   [{
+                            element: 'label',
+                            params: {
+                                for:   'range'
+                            },
+                            children: [{
+                                element: 'textNode',
+                                params: {
+                                    text:   'How do you feel about this?'
+                                }
+                            }]
+                        },
+                        {
+                            element: 'div',
+                            children: [{
+                                element: 'span',
+                                children: [{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   'Low'
+                                    }
+                                }]
+                            },
+                            {
+                                element: 'input',
+                                params: {
+                                    type:   'range',
+                                    id:     'range',
+                                    name:   'range',
+                                    min:    '1',
+                                    max:    '10'
+                                }
+                            },
+                            {
+                                element: 'span',
+                                children: [{
+                                    element: 'textNode',
+                                    params: {
+                                        text:   'High'
+                                    }
+                                }]
+                            }]
+                        }]
+                    },
+                    {
                         element: 'div',
                         children: [{
                             element:    'input',
