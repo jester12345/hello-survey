@@ -1,7 +1,13 @@
 # hello-survey
 Simple, JSON-based survey rendering tool.
+You send in specially constructed JSON to define the form, and a function to call on form submit. Build any form you like. Send the data anywhere you like. You own the whole process!
 
-Early days... not much yet.
+##To Run:
+* yarn
+* grunt
+* Edit a file
+
+Docs: [docs/index.html](docs/index.html)
 
 ## ToDo
 * Add demo
@@ -17,3 +23,5 @@ Early days... not much yet.
 * Distribute via a CDN
 * Distribute via Node
 * Support Bootstrap? Foundation? - may be part of the configuration of the JSON
+* Show JSON
+* Show code

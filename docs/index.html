@@ -1,557 +1,680 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Hello Survey</title>
-        <meta name="author" content="Arthur McLean">
-        <meta name="description" content="Hello Survey demo">
-        <link rel="stylesheet" href="../css/main.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-        <script type="text/javascript" src="../dist/index.js"></script>
-    </head>
-    <body>
-        <h1>Hello Survey</h1>
-        <p>
-            The idea for this application is pretty simple. It's essentially automatic form generation based on JSON input.
-            Ideally we won't require external libraries like jQuery. But, because the form is generated via JavaScript, it
-            fails utterly if JS is disabled.
-        </p>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hello Survey</title>
+  <meta name="author" content="Arthur McLean">
+  <meta name="description" content="Hello Survey demo">
+  <link rel="stylesheet" href="../css/main.css">
+  <script type="text/javascript" src="../node_modules/moment/moment.js"></script>
+  <script type="text/javascript" src="../dist/index.js"></script>
+</head>
+<body>
+  <h1>Hello Survey</h1>
+  <p>
+    The idea for this application is pretty simple. It's essentially automatic form generation based on JSON input.
+    Ideally we won't require external libraries like jQuery. But, because the form is generated via JavaScript, it
+    fails utterly if JS is disabled.
+  </p>
 
-        <ul>
-            <li>
-                Labels
-            </li>
-            <li>
-                <a href="field-types/index.html">Field Types</a>
-            </li>
-            <li>Styling</li>
-            <li>Validation</li>
-        </ul>
+  <ul>
+    <li>
+      Labels
+    </li>
+    <li>
+      <a href="field-types/index.html">Field Types</a>
+    </li>
+    <li>Styling</li>
+    <li>Validation</li>
+  </ul>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Parameter</th>
-                    <th>Usage</th>
-                    <th>Default</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>target</th>
-                    <td>Required</td>
-                    <td></td>
-                    <td>ID of the HTML element in which to build the form.</td>
-                </tr>
-                <tr>
-                    <th>submitFn</th>
-                    <td>Optional</td>
-                    <td></td>
-                    <td>Function to call on form submit with the result data.</td>
-                </tr>
-                <tr>
-                    <th>fields</th>
-                    <td>Optional</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Usage</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>target</th>
+        <td>Required</td>
+        <td></td>
+        <td>ID of the HTML element in which to build the form.</td>
+      </tr>
+      <tr>
+        <th>submitFn</th>
+        <td>Optional</td>
+        <td></td>
+        <td>Function to call on form submit with the result data.</td>
+      </tr>
+      <tr>
+        <th>fields</th>
+        <td>Optional</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 
-        <div id="target_div"></div>
+  <div id="target_div"></div>
 
-        <div>
-            <pre id="result_div"></pre>
-        </div>
+  <div>
+    <h2>Form JSON (uncompressed):</h2>
+    <pre id="json_div"></pre>
+  </div>
 
-        <script type="text/javascript">
-            function mySubmit(data) {
-                console.log(data);
+  <script type="text/javascript">
+    var mySubmit = function(data) {
+      console.log(data);
+    };
+
+    // Define the form
+    var data = {
+      target:'target_div',
+      submitFn: mySubmit,
+      children:[
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'Subscribe to the newsletter?'
+                  }
+                },
+                {
+                  element:'input',
+                  params:{
+                    type:'checkbox',
+                    name:'subscribe',
+                    value:'yes'
+                  }
+                }
+              ]
             }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'Disabled checkbox (should not submit)'
+                  }
+                },
+                {
+                  element:'input',
+                  params:{
+                    type:'checkbox',
+                    name:'not-so-fast',
+                    value:'do not send',
+                    disabled:'true'
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'textarea',
+              params:{
+                name:'my-text-area',
+                id:'my-text-area',
+                placeholder:'Please tell us anything you feel we should know'
+              }
+            }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'How old are you?'
+                  }
+                },
+                {
+                  element:'select',
+                  params:{
+                    name:'age-range',
 
-            function autorun() {
-                // Kick things off
-                var data = {
-                    target:     'target_div',
-                    submitFn:   mySubmit,
-                    children:   [{
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            children: [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'Subscribe to the newsletter?'
-                                }
-                            }, {
-                                element: 'input',
-                                params: {
-                                    type:   'checkbox',
-                                    name:   'subscribe',
-                                    value:  'yes'
-                                }
-                            }]
-                        }]
+                  },
+                  children:[
+                    {
+                      element:'option',
+                      params:{
+                        label:'Under 13',
+                        selected:true,
+                        value:'<13'
+                      }
                     },
                     {
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            children: [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'Disabled checkbox (should not submit)'
-                                }
-                            }, {
-                                element: 'input',
-                                params: {
-                                    type:       'checkbox',
-                                    name:       'not-so-fast',
-                                    value:      'do not send',
-                                    disabled:   'true'
-                                }
-                            }]
-                        }]
+                      element:'option',
+                      params:{
+                        label:'13-17',
+                        value:'13-17'
+                      }
                     },
                     {
-                        element:    'div',
-                        children:   [{
-                            element:        'textarea',
-                            params: {
-                                name:           'my-text-area',
-                                id:             'my-text-area',
-                                placeholder:    'Please tell us anything you feel we should know'
-                            }
-                        }]
+                      element:'option',
+                      params:{
+                        label:'18-25',
+                        value:'18-25'
+                      }
                     },
                     {
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            children:   [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'How old are you?'
-                                }
-                            }, {
-                                element: 'select',
-                                params: {
-                                    name: 'age-range',
-                                },
-                                children: [{
-                                    element: 'option',
-                                    params: {
-                                        label:      'Under 13',
-                                        selected:   true,
-                                        value:      '<13'
-                                    }
-                                },{
-                                    element: 'option',
-                                    params: {
-                                        label: '13-17',
-                                        value: '13-17'
-                                    }
-                                },{
-                                    element: 'option',
-                                    params: {
-                                        label: '18-25',
-                                        value: '18-25'
-                                    }
-                                },{
-                                    element: 'option',
-                                    params: {
-                                        label: '26-34',
-                                        value: '26-34'
-                                    }
-                                },{
-                                    element: 'option',
-                                    params: {
-                                        label: '35-54',
-                                        value: '35-54'
-                                    }
-                                },{
-                                    element: 'option',
-                                    params: {
-                                        label: '55-64',
-                                        value: '55-64'
-                                    }
-                                },{
-                                    element: 'option',
-                                    params: {
-                                        label: '65 or over',
-                                        value: '>=65 or over'
-                                    }
-                                }]
-                            }]
-                        }]
+                      element:'option',
+                      params:{
+                        label:'26-34',
+                        value:'26-34'
+                      }
                     },
                     {
-                        element:    'div',
-                        children:   [{
-                            element:    'div',
-                            children:   [{
-                                element: 'label',
-                                children: [{
-                                    element: 'textNode',
-                                    params: {
-                                        text:   'Favorite Age?'
-                                    }
-                                }]
-                            }]
-                        },
-                        {
-                            element:    'div',
-                            children:   [{
-                                element: 'label',
-                                children: [{
-                                    element: 'input',
-                                    params: {
-                                        type:       'radio',
-                                        name:       'favorite-age',
-                                        value:      '<13',
-                                        required:   true
-                                    }
-                                },{
-                                    element: 'textNode',
-                                    params: {
-                                        text:   'Under 13'
-                                    }
-                                }]
-                            }]
-                        },
-                        {
-                            element:    'div',
-                            children:   [{
-                                element: 'label',
-                                children: [{
-                                    element: 'input',
-                                    params: {
-                                        type:       'radio',
-                                        name:       'favorite-age',
-                                        value:      '13-17',
-                                        required:   true
-                                    }
-                                },{
-                                    element: 'textNode',
-                                    params: {
-                                        text:   '13-17'
-                                    }
-                                }]
-                            }]
-                        },
-                        {
-                            element:    'div',
-                            children:   [{
-                                element: 'label',
-                                children: [{
-                                    element: 'input',
-                                    params: {
-                                        type:       'radio',
-                                        name:       'favorite-age',
-                                        value:      '18-25',
-                                        required:   true
-                                    }
-                                },{
-                                    element: 'textNode',
-                                    params: {
-                                        text:   '18-25'
-                                    }
-                                }]
-                            }]
-                        },
-                        {
-                            element:    'div',
-                            children:   [{
-                                element: 'label',
-                                children: [{
-                                    element: 'input',
-                                    params: {
-                                        type:       'radio',
-                                        name:       'favorite-age',
-                                        value:      '26-34',
-                                        required:   true
-                                    }
-                                },{
-                                    element: 'textNode',
-                                    params: {
-                                        text:   '26-34'
-                                    }
-                                }]
-                            }]
-                        },
-                        {
-                            element:    'div',
-                            children:   [{
-                                element: 'label',
-                                children: [{
-                                    element: 'input',
-                                    params: {
-                                        type:       'radio',
-                                        name:       'favorite-age',
-                                        value:      '35-54',
-                                        required:   true
-                                    }
-                                },{
-                                    element: 'textNode',
-                                    params: {
-                                        text:   '35-54'
-                                    }
-                                }]
-                            }]
-                        },
-                        {
-                            element:    'div',
-                            children:   [{
-                                element: 'label',
-                                children: [{
-                                    element: 'input',
-                                    params: {
-                                        type:       'radio',
-                                        name:       'favorite-age',
-                                        value:      '55-64',
-                                        required:   true
-                                    }
-                                },{
-                                    element: 'textNode',
-                                    params: {
-                                        text:   '55-64'
-                                    }
-                                }]
-                            }]
-                        },
-                        {
-                            element:    'div',
-                            children:   [{
-                                element: 'label',
-                                children: [{
-                                    element: 'input',
-                                    params: {
-                                        type:       'radio',
-                                        name:       'favorite-age',
-                                        value:      '>=65',
-                                        required:   true
-                                    }
-                                },{
-                                    element: 'textNode',
-                                    params: {
-                                        text:   '65 or over'
-                                    }
-                                }]
-                            }]
-                        }]
+                      element:'option',
+                      params:{
+                        label:'35-54',
+                        value:'35-54'
+                      }
                     },
                     {
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            children: [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'Favorite Color?'
-                                }
-                            }, {
-                                element: 'input',
-                                params: {
-                                    type:   'color',
-                                    name:   'color',
-                                    value:  '#bf5700'
-                                }
-                            }]
-                        }]
+                      element:'option',
+                      params:{
+                        label:'55-64',
+                        value:'55-64'
+                      }
                     },
                     {
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            children: [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'Favorite Date?'
-                                }
-                            }, {
-                                element: 'input',
-                                params: {
-                                    type:   'date',
-                                    name:   'date',
-                                    value:  moment().format('YYYY-MM-DD')
-                                }
-                            }]
-                        }]
-                    },
-                    {
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            children: [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'Favorite Datetime?'
-                                }
-                            }, {
-                                element: 'input',
-                                params: {
-                                    type:   'datetime-local',
-                                    name:   'datetime',
-                                    value:  moment().format('YYYY-MM-DDTHH:mm:ss')
-                                }
-                            }]
-                        }]
-                    },
-                    {
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            params: {
-                                for:   'email'
-                            },
-                            children: [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'Email:'
-                                }
-                            }]
-                        }, {
-                            element: 'input',
-                            params: {
-                                type:   'email',
-                                id:     'email',
-                                name:   'email'
-                            }
-                        }]
-                    },
-                    {
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            children: [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'Hidden Field'
-                                }
-                            }, {
-                                element: 'input',
-                                params: {
-                                    type:   'hidden',
-                                    name:   'hidden',
-                                    value:  moment().format('x')
-                                }
-                            }]
-                        }]
-                    },
-                    {
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            params: {
-                                for:   'month'
-                            },
-                            children: [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'Favorite Month:'
-                                }
-                            }]
-                        }, {
-                            element: 'input',
-                            params: {
-                                type:   'month',
-                                id:     'month',
-                                name:   'month'
-                            }
-                        }]
-                    },
-                    {
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            params: {
-                                for:   'number'
-                            },
-                            children: [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'Favorite Number:'
-                                }
-                            }]
-                        }, {
-                            element: 'input',
-                            params: {
-                                type:   'number',
-                                id:     'number',
-                                name:   'number'
-                            }
-                        }]
-                    },
-                    {
-                        element:    'div',
-                        children:   [{
-                            element: 'label',
-                            params: {
-                                for:   'range'
-                            },
-                            children: [{
-                                element: 'textNode',
-                                params: {
-                                    text:   'How do you feel about this?'
-                                }
-                            }]
-                        },
-                        {
-                            element: 'div',
-                            children: [{
-                                element: 'span',
-                                children: [{
-                                    element: 'textNode',
-                                    params: {
-                                        text:   'Low'
-                                    }
-                                }]
-                            },
-                            {
-                                element: 'input',
-                                params: {
-                                    type:   'range',
-                                    id:     'range',
-                                    name:   'range',
-                                    min:    '1',
-                                    max:    '10'
-                                }
-                            },
-                            {
-                                element: 'span',
-                                children: [{
-                                    element: 'textNode',
-                                    params: {
-                                        text:   'High'
-                                    }
-                                }]
-                            }]
-                        }]
-                    },
-                    {
-                        element: 'div',
-                        children: [{
-                            element:    'input',
-                            params:     {
-                                type:   'submit',
-                                name:   'submit',
-                                value:  'Submit'    
-                            }
-                        }]
-                    }]
-                };
-                var survey = new helloSurvey(data);
+                      element:'option',
+                      params:{
+                        label:'65 or over',
+                        value:'>=65 or over'
+                      }
+                    }
+                  ]
+                }
+              ]
             }
-            if( document.addEventListener ) {
-                document.addEventListener("DOMContentLoaded", autorun, false);
-            } else if( document.attachEvent ) {
-                document.attachEvent("onreadystatechange", autorun);
-            } else {
-                window.onload = autorun;
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'div',
+              children:[
+                {
+                  element:'label',
+                  children:[
+                    {
+                      element:'textNode',
+                      params:{
+                        text:'Favorite Age?'
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              element:'div',
+              children:[
+                {
+                  element:'label',
+                  children:[
+                    {
+                      element:'input',
+                      params:{
+                        type:'radio',
+                        name:'favorite-age',
+                        value:'<13',
+                        required:true
+                      }
+                    },
+                    {
+                      element:'textNode',
+                      params:{
+                        text:'Under 13'
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              element:'div',
+              children:[
+                {
+                  element:'label',
+                  children:[
+                    {
+                      element:'input',
+                      params:{
+                        type:'radio',
+                        name:'favorite-age',
+                        value:'13-17',
+                        required:true
+                      }
+                    },
+                    {
+                      element:'textNode',
+                      params:{
+                        text:'13-17'
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              element:'div',
+              children:[
+                {
+                  element:'label',
+                  children:[
+                    {
+                      element:'input',
+                      params:{
+                        type:'radio',
+                        name:'favorite-age',
+                        value:'18-25',
+                        required:true
+                      }
+                    },
+                    {
+                      element:'textNode',
+                      params:{
+                        text:'18-25'
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              element:'div',
+              children:[
+                {
+                  element:'label',
+                  children:[
+                    {
+                      element:'input',
+                      params:{
+                        type:'radio',
+                        name:'favorite-age',
+                        value:'26-34',
+                        required:true
+                      }
+                    },
+                    {
+                      element:'textNode',
+                      params:{
+                        text:'26-34'
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              element:'div',
+              children:[
+                {
+                  element:'label',
+                  children:[
+                    {
+                      element:'input',
+                      params:{
+                        type:'radio',
+                        name:'favorite-age',
+                        value:'35-54',
+                        required:true
+                      }
+                    },
+                    {
+                      element:'textNode',
+                      params:{
+                        text:'35-54'
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              element:'div',
+              children:[
+                {
+                  element:'label',
+                  children:[
+                    {
+                      element:'input',
+                      params:{
+                        type:'radio',
+                        name:'favorite-age',
+                        value:'55-64',
+                        required:true
+                      }
+                    },
+                    {
+                      element:'textNode',
+                      params:{
+                        text:'55-64'
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              element:'div',
+              children:[
+                {
+                  element:'label',
+                  children:[
+                    {
+                      element:'input',
+                      params:{
+                        type:'radio',
+                        name:'favorite-age',
+                        value:'>=65',
+                        required:true
+                      }
+                    },
+                    {
+                      element:'textNode',
+                      params:{
+                        text:'65 or over'
+                      }
+                    }
+                  ]
+                }
+              ]
             }
-        </script>
-    </body>
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'Favorite Color?'
+                  }
+                },
+                {
+                  element:'input',
+                  params:{
+                    type:'color',
+                    name:'color',
+                    value:'#bf5700'
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'Favorite Date?'
+                  }
+                },
+                {
+                  element:'input',
+                  params:{
+                    type:'date',
+                    name:'date',
+                    value:moment().format('YYYY-MM-DD')
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'Favorite Datetime?'
+                  }
+                },
+                {
+                  element:'input',
+                  params:{
+                    type:'datetime-local',
+                    name:'datetime',
+                    value:moment().format('YYYY-MM-DDTHH:mm:ss')
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              params:{
+                for:'email'
+              },
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'Email:'
+                  }
+                }
+              ]
+            },
+            {
+              element:'input',
+              params:{
+                type:'email',
+                id:'email',
+                name:'email'
+              }
+            }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'Hidden Field'
+                  }
+                },
+                {
+                  element:'input',
+                  params:{
+                    type:'hidden',
+                    name:'hidden',
+                    value:moment().format('x')
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              params:{
+                for:'month'
+              },
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'Favorite Month:'
+                  }
+                }
+              ]
+            },
+            {
+              element:'input',
+              params:{
+                type:'month',
+                id:'month',
+                name:'month'
+              }
+            }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              params:{
+                for:'number'
+              },
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'Favorite Number:'
+                  }
+                }
+              ]
+            },
+            {
+              element:'input',
+              params:{
+                type:'number',
+                id:'number',
+                name:'number'
+              }
+            }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'label',
+              params:{
+                for:'range'
+              },
+              children:[
+                {
+                  element:'textNode',
+                  params:{
+                    text:'How do you feel about this?'
+                  }
+                }
+              ]
+            },
+            {
+              element:'div',
+              children:[
+                {
+                  element:'span',
+                  children:[
+                    {
+                      element:'textNode',
+                      params:{
+                        text:'Low'
+                      }
+                    }
+                  ]
+                },
+                {
+                  element:'input',
+                  params:{
+                    type:'range',
+                    id:'range',
+                    name:'range',
+                    min:'1',
+                    max:'10'
+                  }
+                },
+                {
+                  element:'span',
+                  children:[
+                    {
+                      element:'textNode',
+                      params:{
+                        text:'High'
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          element:'div',
+          children:[
+            {
+              element:'input',
+              params:{
+                type:'submit',
+                name:'submit',
+                value:'Submit'
+              }
+            }
+          ]
+        }
+      ]
+    };
+
+    // Show the JSON
+    document.getElementById('json_div').innerHTML = JSON.stringify(data, undefined, 2);
+
+    function autorun() {
+      // Kick things off
+      var survey = new helloSurvey(data);
+    }
+
+    if( document.addEventListener ) {
+      document.addEventListener("DOMContentLoaded", autorun, false);
+    } else if( document.attachEvent ) {
+      document.attachEvent("onreadystatechange", autorun);
+    } else {
+      window.onload = autorun;
+    }
+    </script>
+  </body>
 </html>
