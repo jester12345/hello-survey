@@ -35,7 +35,7 @@
     "grunt-postcss": "^0.9.0",
     "grunt-sass": "^2.0.0",
     "load-grunt-tasks": "^3.5.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "node-sass": "^4.5.3",
     "sass-watch": "^0.1.0"
   },
